@@ -16,7 +16,7 @@ use App\Models\User,
     Auth,
     JWTAuth,
     Cache,
-    Utils,
+    App\Library\Utils\Utils,
     Mail,
     Password,
     Lang,
@@ -46,9 +46,11 @@ class UserService
         DB::beginTransaction();
 
         try {
+            
             $token= false;
             $appService= new AppService;
             $modelApp= $appService->verifyVersion($data['app_id'], $data['appversion']);
+
 
             $newGuard = auth()->guard($this->guard);
 
@@ -64,7 +66,7 @@ class UserService
 
             $modelUSer = $newGuard->getUser();
 
-            if ($modelUSer->statejarj->id!=StateTarj::state_active)
+            if (!$modelUSer->flagactive)
                 return [ResponseApiService::STATE_ERROR, trans('responseapi.auth.not-state')];
 
             if (!$modelUSer->hasRole($role))

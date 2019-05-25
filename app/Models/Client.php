@@ -40,8 +40,12 @@ class Client extends Authenticatable implements AuthenticatableUserContract {
     const PASSWORD='123456';
     const flagactive=1;
     const TABLE_NAME= 'clients';
+
     protected $hidden = [
-        'password', 'remember_token','apitoken','tokendevice','created_at','updated_at','deleted_at','typedevice','app_id','appversion','gasoline_id','pivot'
+        'password', 'remember_token','apitoken',
+        'tokendevice','created_at','updated_at',
+        'deleted_at','typedevice','app_id',
+        'appversion','gasoline_id','pivot'
     ];
 
 
@@ -60,11 +64,6 @@ class Client extends Authenticatable implements AuthenticatableUserContract {
     }
 
 
-
-
-
-
-
     public function app() {
         return $this->belongsTo(App::class, 'app_id', 'id');
     }
@@ -80,7 +79,6 @@ class Client extends Authenticatable implements AuthenticatableUserContract {
         return $this->morphMany(HistoryLogin::class,'user');
     }
 
-   
 
     /**
      * @return mixed

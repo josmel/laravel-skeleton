@@ -19,11 +19,9 @@ class Role extends EntrustRole {
     ];
     const PREFIX_CACHE = 'roles_';
     const CACHE_MINUTES = 1440;
-    const USER_SUPERADMIN = 'user_super_admin';
-    const USER_ADMIN = 'user_admin';
-    const USER_APP = 'user_app';
-    const USER_APP_PLUS = 'user_app_plus';
-    const USER_APP_PLUS_BENEFICIARY = 'user_app_plus_beneficiary';
+    const USER_APP_CLIENT = 'user_client';
+    const USER_APP_PROVIDER = 'user_provider';
+    
     protected $hidden = [
         'created_at','updated_at','deleted_at'
     ];

@@ -9,7 +9,7 @@
 namespace App\Services;
 
 use App\Models\App,
-    Utils,
+    App\Library\Utils\Utils,
     Cache,
     Config;
 use App\Models\AppVersion;
@@ -22,15 +22,17 @@ class AppService {
         $minutes = Config::get('cache.ttl');
 
         $objApp = Cache::remember(App::PREFIX_CACHE . $idApp, $minutes, function() use ($modelApp, $idApp) {
+          
             $objApp = $modelApp->getAppById($idApp);
-
+           
             if (!$objApp)
                 throw new \Exception("Id App inválido");
 
             return $objApp;
         });
 
-        if (!Utils::compareVersion($version, $objApp->app_version, $objApp->rule))
+       
+        if (!Utils::compareVersion($version, $objApp->appversion, $objApp->rule))
             throw new \Exception("Actualice su aplicación, la versión está obsoleta");
 
         return $objApp;
