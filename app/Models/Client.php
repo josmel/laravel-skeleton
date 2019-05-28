@@ -34,7 +34,9 @@ class Client extends Authenticatable implements AuthenticatableUserContract {
         'flagactive',
         'preference',
         'company',
-        'gasoline_id'
+        'gasoline_id',
+        'document_id',
+        'document','latitude','longitude','address'
     ];
     const PREFIX_CACHE= 'clients_';
     const PASSWORD='123456';

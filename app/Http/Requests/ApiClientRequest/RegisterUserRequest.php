@@ -30,15 +30,19 @@ class RegisterUserRequest extends RequestService
         if($method=='POST'){
             $required= 'required|';
         }else{
-            $id= ",".auth()->guard('api_client')->user()->id;
+            $id= ",".auth()->guard('client')->user()->id;
         }
         return [
             'fullname' =>"$required min:2,max:255",
-            'email' =>  "$required email|max:255|unique:app_client,email$id",
+            'email' =>  "$required email|max:255|unique:clients,email$id",
             'current_password' => 'min:6|current_password',
             'password' =>  "$required min:6|confirmed|required_with:current_password",
             'app_id' => "$required|integer|exists:apps,id",
-            'phone' => "$required |regex:/^[0-9]+$/|size:9|unique:app_client,code$id",
+            'document' => "$required|integer|unique:clients,document$id",
+            'latitude' => "$required",
+            'longitude' => "$required",
+            'address' => "$required",
+            'phone' => "$required |regex:/^[0-9]+$/|size:9|unique:clients,phone$id",
             'appversion' => "$required",
             'tokendevice' =>"$required"
         ];

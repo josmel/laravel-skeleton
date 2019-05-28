@@ -8,6 +8,7 @@ $router->prefix('user')->group(function ($router) {
 
 $router->group(['middleware' => ['auth:client']], function ($router) {
     $router->get('user/logout', 'UserController@getLogout');
+    $router->put('user', 'UserController@update');
     $router->post('order/{order}', 'OrderController@postComment');
     $router->resource('order', 'OrderController');
     $router->get('coupon/validate', 'CouponController@getValidate');

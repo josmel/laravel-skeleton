@@ -124,20 +124,25 @@ class UserController extends ApiController
         try {
             $request = $request->all();
             $input = Utils::clearInputs($request);
-            if (isset($input['image'])) {
+            /*if (isset($input['image'])) {
                 $LibraryUtils = new Utils();
                 $input['image'] = $LibraryUtils->createImageToString($input['image'], $this->path,[ env('WITH_ENV', '100'), env('HEIGH_ENV', '100')]);
                 (!is_null($this->_identity->image)) ? Storage::delete($this->path . '/' . $this->_identity->image) : "";
-            }
+            }*/
             if (isset($input['password']) && !empty($input['password'])) {
                 $input['password'] = Hash::make($input['password']);
             }
             $this->_identity->update($input);
+            
             DB::commit();
-            return $this->_response->successMessage();
+            return $this->_response
+                ->successMessage();
+
         } catch (\Exception $ex) {
+
             DB::rollBack();
-            return $this->_response->errorMessage();
+            return $this->_response
+                    ->errorMessage();
         }
     }
 
