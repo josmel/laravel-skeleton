@@ -17,6 +17,8 @@ $router->group(['middleware' => ['auth:client']], function ($router) {
     $router->get('client/{client}/{type}', 'ClientController@show');
     $router->resource('client', 'ClientController');
     $router->resource('reservation', 'ReservationController');
+    $router->resource('product', 'ProductController');
+    $router->resource('brand', 'BrandController');
     $router->resource('user', 'UserController', ['only' => ['index']]);
 
 });

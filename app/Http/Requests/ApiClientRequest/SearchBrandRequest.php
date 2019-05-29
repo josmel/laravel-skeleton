@@ -4,7 +4,7 @@ namespace App\Http\Requests\ApiClientRequest;
 
 use App\Http\Requests\RequestService;
 
-class SearchClientRequest extends RequestService
+class SearchBrandRequest extends RequestService
 {
 
     /**
@@ -21,6 +21,7 @@ class SearchClientRequest extends RequestService
     public function rules()
     {
         return [
+            "product_id"=>"required|exists:products,id",
             "search"=>"required|min:3"
         ];
 
