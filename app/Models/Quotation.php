@@ -13,7 +13,7 @@ class Quotation extends Model {
     protected $guarded = [];
     protected $fillable = [
              'client_id','category_id','price',
-             'description','address','type','date'
+             'description','address','type','date', 'title','especifications'
     ];
     protected $hidden =['updated_at','deleted_at'];
     public function products()
