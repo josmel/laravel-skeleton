@@ -30,9 +30,6 @@ class QuotationController extends ApiController
 
         }
     }
-
-
-
     /**
      * Store a newly created resource in storage.
      *
@@ -49,23 +46,18 @@ class QuotationController extends ApiController
 
             $dataQuotation=$request->all();
 
-
             unset($dataQuotation['quotation']);
 
             $quotation = $this->_identity->quotations()
             ->create($dataQuotation);
 
-            foreach($collection as $k=>$y){
+           
+               /* $response=$quotation->items()
+                ->attach($grouped);*/
 
-                $grouped =  [
-                    $y['category_id']=> ['description'=>$y['description'],
-                                            'quantity'=>$y['quantity'] ]
-                ];
 
-                $response=$quotation->items()
-                ->attach($grouped);
-
-            }
+        $response=$quotation->items()
+                ->createMany($collection);
             
             DB::commit();
             return $this->_response
@@ -89,8 +81,6 @@ class QuotationController extends ApiController
     {
         try {
             
-
-
            $respons= $this->_identity->quotations()
                     ->where('quotations.id',$id)
                     ->with('items')

@@ -21,10 +21,22 @@ class Brand extends Model {
     ];
 
 
+    public function products()
+    {
+        return $this->belongsToMany(
+            Product::class,
+            'brand_product',
+            'brand_id',
+            'product_id');
+    }
+
 
     public static function getBrand($brand,$product){
 
         return self::where('name', 'like', '%'.$brand.'%')
-        ->where('product_id',$product);
+                 ->whereHas('products', function ($query) use ($product){
+                 $query->where('products.id',$product);
+                });
     }
+
 }

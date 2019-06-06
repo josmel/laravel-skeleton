@@ -2,7 +2,7 @@
 
 return [
     'HTTP_UNAUTHORIZED' => 'No autorizado',
-    'defaultmessage_ok' => 'Petición procesado correctamente',
+    'defaultmessage_ok' => 'Petición procesada correctamente',
     'defaultmessage_error' => 'Error en el consumo del servicio',
     'HTTP_FORBIDDEN' => 'No permitido',
     'auth' => ['failed' => "Estas credenciales no coinciden con nuestros registros.",

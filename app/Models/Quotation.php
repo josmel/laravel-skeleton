@@ -18,7 +18,7 @@ class Quotation extends Model {
     protected $hidden =['updated_at','deleted_at'];
 
 
-    public function items()
+    public function products()
     {
         return $this->belongsToMany(
             Product::class,
@@ -27,5 +27,12 @@ class Quotation extends Model {
             'product_id')
             ->withPivot('quantity','brand','product');
     }
+
+
+    public function items()
+    {
+        return $this->hasMany(Item::class, 'quotation_id', 'id');
+    }
+
 
 }

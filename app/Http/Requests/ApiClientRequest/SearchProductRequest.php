@@ -21,7 +21,8 @@ class SearchProductRequest extends RequestService
     public function rules()
     {
         return [
-            "search"=>"required|min:3"
+           // "search"=>"required|min:3",
+            'product_id' => "required|integer|exists:products,id"
         ];
 
     }

@@ -20,8 +20,10 @@ class BrandController extends ApiController
     {
         try {
             $search = $request->input('search', "");
+            
             $product = $request->input('product_id', "");
-            $response = Datatables::eloquent(Brand::geBrand($search, $product));
+           
+            $response = Datatables::eloquent(Brand::getBrand($search, $product));
             
             return $response
             ->make(true);
