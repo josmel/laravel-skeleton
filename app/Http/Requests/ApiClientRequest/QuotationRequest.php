@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\ApiRequest;
+namespace App\Http\Requests\ApiClientRequest;
 
 use App\Http\Requests\RequestService;
 use Config;
-use App\Models\Gasonet\Eess;
+
 class QuotationRequest extends RequestService
 {
     protected  $type=null;
@@ -24,19 +24,22 @@ class QuotationRequest extends RequestService
      * @return array
      */
     public function rules()
-    {
+    { 
+       
         return [
             'date'=>'required|date|date_format:Y-m-d',
             'address'=>'required',
             'specification'=>'required|min:4',
-            'type'=>'required|in:1,2,3,4',
+            'type_payment'=>'required|in:1,2',
+            'type_address'=>'required|in:1,2,3',
             'title'=>'required|min:4',
-            'quotation.*.quantity' => 'required|integer',
-           // 'quotation.*.description' => 'required',
-            'quotation.*.product' => 'min:2',
-            'quotation.*.brand' => 'min:2',
-            'quotation.*.product_id' => 'exists:products,id',
-            'quotation.*.brand_id' => 'exists:brands,id',
+                'quotation.*.quantity' => 'required|integer',
+                'quotation.*.product' => 'required_without:quotation.*.product_id',
+                'quotation.*.brand' =>   'required_without:quotation.*.brand_id',
+                'quotation.*.product_id' => 'required_without:quotation.*.product',
+                'quotation.*.brand_id' =>   'required_without:quotation.*.brand'
         ];
     }
+
+    
 }

@@ -12,17 +12,19 @@ class Quotation extends Model {
     public $timestamps = true;
     protected $guarded = [];
     protected $fillable = [
-             'client_id','category_id','price',
-             'description','address','type','date', 'title','especifications'
+             'client_id','type_payment',
+             'description','address','type_address','date', 'title','specification'
     ];
     protected $hidden =['updated_at','deleted_at'];
-    public function products()
+
+
+    public function items()
     {
         return $this->belongsToMany(
             Category::class,
-            'category_quotation',
+            'items',
             'quotation_id',
-            'category_id')
+            'product_id')
             ->withPivot('quantity','description');
     }
 

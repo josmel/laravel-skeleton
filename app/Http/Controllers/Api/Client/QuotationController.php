@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Client;
 
+use App\Http\Controllers\Api\ApiController;
+use App\Http\Requests\ApiClientRequest\QuotationRequest;
 use App\Models\Client;
 use DB;
-use App\Http\Requests\ApiRequest\QuotationRequest;
+
 
 class QuotationController extends ApiController
 {
@@ -40,24 +42,29 @@ class QuotationController extends ApiController
     public function store(QuotationRequest $request)
     {
         try {
+
             DB::beginTransaction(); 
+
             $collection=$request->input('quotation');
-            $userId=Client::find(1);
 
             $dataQuotation=$request->all();
+
+
             unset($dataQuotation['quotation']);
-            $quotation=$userId->quotations()
+
+            $quotation = $this->_identity->quotations()
             ->create($dataQuotation);
 
             foreach($collection as $k=>$y){
-                $grouped =
-               [$y['category_id']=> ['description'=>
-                $y['description'],
-                'quantity'=>$y['quantity']
-            ]];
 
-            $response=$quotation->products()
-            ->attach($grouped);
+                $grouped =  [
+                    $y['category_id']=> ['description'=>$y['description'],
+                                            'quantity'=>$y['quantity'] ]
+                ];
+
+                $response=$quotation->products()
+                ->attach($grouped);
+
             }
             
             DB::commit();
