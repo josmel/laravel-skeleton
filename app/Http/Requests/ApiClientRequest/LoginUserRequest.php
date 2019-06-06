@@ -27,7 +27,7 @@ class LoginUserRequest extends RequestService
         return [
             'email' => 'required|email',
             'password' => 'required|min:6',
-            'app_id' =>'integer|in:1,2',
+            'app_id' =>'required|integer|in:1,2',
             'appversion' => 'required',
         ];
     }

@@ -16,8 +16,8 @@ class QuotationController extends ApiController
     {
         try {
             
-            $response = Client::find(1)
-                        ->with('quotations.products')
+            $response = $this->_identity
+                        ->with('quotations.items')
                         ->first();
 
             return $this->_response
@@ -62,7 +62,7 @@ class QuotationController extends ApiController
                                             'quantity'=>$y['quantity'] ]
                 ];
 
-                $response=$quotation->products()
+                $response=$quotation->items()
                 ->attach($grouped);
 
             }
@@ -90,15 +90,14 @@ class QuotationController extends ApiController
         try {
             
 
-            $response = Client::find(1);
 
-           $responsx= $response->quotations()
+           $respons= $this->_identity->quotations()
                     ->where('quotations.id',$id)
-                    ->with('products')
+                    ->with('items')
                     ->get();
 
             return $this->_response
-            ->successMessage($responsx[0]);
+            ->successMessage($respons[0]);
 
 
         } catch (\Exception $e) {

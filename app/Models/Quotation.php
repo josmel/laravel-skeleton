@@ -21,11 +21,11 @@ class Quotation extends Model {
     public function items()
     {
         return $this->belongsToMany(
-            Category::class,
+            Product::class,
             'items',
             'quotation_id',
             'product_id')
-            ->withPivot('quantity','description');
+            ->withPivot('quantity','brand','product');
     }
 
 }
