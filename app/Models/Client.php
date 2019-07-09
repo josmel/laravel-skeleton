@@ -1,11 +1,9 @@
 <?php namespace App\Models;
 
-use App\Models\Gasonet\Producto;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject as AuthenticatableUserContract;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Gasonet\Eess;
 use Config;
 use DB;
 class Client extends Authenticatable implements AuthenticatableUserContract {
@@ -34,7 +32,6 @@ class Client extends Authenticatable implements AuthenticatableUserContract {
         'flagactive',
         'preference',
         'company',
-        'gasoline_id',
         'document_id',
         'document','latitude','longitude','address'
     ];
@@ -56,6 +53,10 @@ class Client extends Authenticatable implements AuthenticatableUserContract {
         return $this->hasMany(Quotation::class, 'client_id', 'id');
     }
 
+    public function states()
+    {
+        return $this->belongsToMany(State::class,'quotations');
+    }
 
     public function categoryQuotation()
     {

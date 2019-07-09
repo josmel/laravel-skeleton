@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Client;
 
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\ApiClientRequest\QuotationRequest;
-use App\Models\Client;
+use App\Models\{Client,State,Quotation};
 use DB;
 
 
@@ -16,12 +16,10 @@ class QuotationController extends ApiController
     {
         try {
             
-            $response = $this->_identity
-                        ->with('quotations.items')
-                        ->first();
+            $states= State::getAllQuotations($this->_identity->id);
 
             return $this->_response
-            ->successMessage($response->quotations);
+            ->successMessage($states);
 
         } catch (\Exception $e) {
 
@@ -51,12 +49,8 @@ class QuotationController extends ApiController
             $quotation = $this->_identity->quotations()
             ->create($dataQuotation);
 
-           
-               /* $response=$quotation->items()
-                ->attach($grouped);*/
-
-
-        $response=$quotation->items()
+        
+            $response=$quotation->items()
                 ->createMany($collection);
             
             DB::commit();
@@ -79,16 +73,12 @@ class QuotationController extends ApiController
      */
     public function show($id)
     {
-        try {
-            
-           $respons= $this->_identity->quotations()
-                    ->where('quotations.id',$id)
-                    ->with('items')
-                    ->get();
+        try { 
+
+            $dataResponse= Quotation::getQuotation($this->_identity->id,$id);
 
             return $this->_response
-            ->successMessage($respons[0]);
-
+            ->successMessage($dataResponse);
 
         } catch (\Exception $e) {
 

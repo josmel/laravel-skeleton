@@ -1,7 +1,6 @@
 <?php namespace App\Models;
 
-use  Illuminate\Database\Eloquent\Model;
-class Quotation extends Model {
+class Quotation extends BaseModel {
 
     /**
      * Generated
@@ -12,7 +11,7 @@ class Quotation extends Model {
     public $timestamps = true;
     protected $guarded = [];
     protected $fillable = [
-             'client_id','type_payment',
+             'client_id','type_payment','state_id',
              'description','address','type_address','date', 'title','specification'
     ];
     protected $hidden =['updated_at','deleted_at'];
@@ -34,5 +33,13 @@ class Quotation extends Model {
         return $this->hasMany(Item::class, 'quotation_id', 'id');
     }
 
+
+    public static function getQuotation($user_id,$id){
+
+        return self::where('client_id',$user_id)
+             ->where('id',$id)
+            ->with('items')
+            ->first();
+    }
 
 }

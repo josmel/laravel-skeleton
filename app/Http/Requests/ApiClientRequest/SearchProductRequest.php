@@ -3,6 +3,7 @@
 namespace App\Http\Requests\ApiClientRequest;
 
 use App\Http\Requests\RequestService;
+use Illuminate\Http\Request;
 
 class SearchProductRequest extends RequestService
 {
@@ -18,12 +19,17 @@ class SearchProductRequest extends RequestService
     }
 
 
-    public function rules()
+    public function rules(Request $request)
     {
-        return [
-           // "search"=>"required|min:3",
-            'product_id' => "required|integer|exists:products,id"
-        ];
+
+        $requestResponse=[];
+
+        $requestResponse["search"]="required|min:3";
+        if($request->route()->getName()=="brand.index"){
+            $requestResponse["product_id"]="required|integer|exists:products,id";
+        }
+
+        return $requestResponse;
 
     }
 }
