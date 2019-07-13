@@ -53,6 +53,7 @@ class Client extends Authenticatable implements AuthenticatableUserContract {
         return $this->hasMany(Quotation::class, 'client_id', 'id');
     }
 
+ 
     public function states()
     {
         return $this->belongsToMany(State::class,'quotations');

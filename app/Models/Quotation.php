@@ -16,6 +16,11 @@ class Quotation extends BaseModel {
     ];
     protected $hidden =['updated_at','deleted_at'];
 
+    public function providers()
+    {
+        return $this->belongsToMany(Provider::class,'provider_quotation','quotation_id','provider_id')
+        ->withPivot('price');
+    }
 
     public function products()
     {

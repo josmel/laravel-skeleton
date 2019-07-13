@@ -19,6 +19,7 @@ class BrandController extends ApiController
     public function index(SearchProductRequest $request)
     {
         try {
+            
             $search = $request->input('search', "");
             
             $product = $request->input('product_id', "");

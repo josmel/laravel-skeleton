@@ -44,6 +44,11 @@ class Provider extends  Authenticatable implements AuthenticatableUserContract
         return $this->hasMany(Edit::class, 'admin_id', 'id');
     }
 
+    public function Quotations()
+    {
+        return $this->belongsToMany(Quotation::class,'provider_quotation','provider_id','quotation_id');
+    }
+
 //    public function roleuser() {
 //        return $this->morphMany(RoleUser::class, 'user');
 //    }

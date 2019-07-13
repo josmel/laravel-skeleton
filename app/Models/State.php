@@ -26,9 +26,8 @@ class state extends Model {
     public static function getAllQuotations($user_id)
     {
        return  self::with(['quotations'=> function ($query) use ($user_id){
-            $query->where('quotations.client_id',
-            $user_id)
-        ->with('items');
+            $query->where('quotations.client_id', $user_id)
+              ->with(['items','providers']);
         }])
         ->withCount(['quotations'=> function ($query) use ($user_id) {
             $query->where('quotations.client_id',

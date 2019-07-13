@@ -16,7 +16,7 @@ class QuotationController extends ApiController
     {
         try {
             
-            $states= State::getAllQuotations($this->_identity->id);
+            $states = State::getAllQuotations($this->_identity->id);
 
             return $this->_response
             ->successMessage($states);
@@ -24,7 +24,7 @@ class QuotationController extends ApiController
         } catch (\Exception $e) {
 
             return $this->_response
-            ->errorMessage();
+            ->errorMessage($e->getMessage());
 
         }
     }
@@ -54,6 +54,7 @@ class QuotationController extends ApiController
                 ->createMany($collection);
             
             DB::commit();
+
             return $this->_response
             ->successMessage($response);
 
@@ -75,7 +76,7 @@ class QuotationController extends ApiController
     {
         try { 
 
-            $dataResponse= Quotation::getQuotation($this->_identity->id,$id);
+            $dataResponse = Quotation::getQuotation($this->_identity->id,$id);
 
             return $this->_response
             ->successMessage($dataResponse);
